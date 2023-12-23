@@ -53,4 +53,5 @@ public interface TaskManager {
     void deleteEpic(Epic epic);
 
     void deleteSubtask(Subtask subtask);
+
 }
