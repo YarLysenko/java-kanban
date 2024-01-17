@@ -23,7 +23,7 @@ public class Main {
         taskManager.createSubtask(subtask1);
         Subtask subtask2 = new Subtask("Подзадача 2", "Описание подзадачи 2", epic1.getId());
         taskManager.createSubtask(subtask2);
-        Subtask subtask3 = new Subtask("Подзадача 3", "Описание подзадачи 3", epic2.getId());
+        Subtask subtask3 = new Subtask("Подзадача 3", "Описание подзадачи 3", epic1.getId());
         taskManager.createSubtask(subtask3);
 
 
@@ -71,13 +71,13 @@ public class Main {
         }
 
         System.out.println();
-        System.out.println("ПОЛУЧЕНИЕ ЗАДАЧИ 1 ПО ИДЕНТИФИКАТОРУ");
+        System.out.println("ПОЛУЧЕНИЕ ЗАДАЧ ПО ИДЕНТИФИКАТОРУ 2");
         System.out.println();
-        System.out.println(taskManager.getTaskById(task1.getId()));
-        System.out.println(taskManager.getTaskById(task1.getId()));
-        System.out.println(taskManager.getTaskById(task1.getId()));
-        System.out.println(taskManager.getTaskById(task1.getId()));
-        System.out.println(taskManager.getTaskById(task1.getId()));
+        System.out.println(taskManager.getEpicById(epic1.getId()));
+        System.out.println(taskManager.getEpicById(epic1.getId()));
+        System.out.println(taskManager.getSubtaskById(subtask2.getId()));
+        System.out.println(taskManager.getSubtaskById(subtask3.getId()));
+
 
         System.out.println();
         System.out.println("УДАЛЕНИЕ ОДНОЙ ПОДЗАДАЧИ");
@@ -109,6 +109,13 @@ public class Main {
         taskManager.deleteAllTasks();
         taskManager.printEpics();
         taskManager.printSubtasks();
+
+        System.out.println();
+        System.out.println("ИСТОРИЯ ПРОСМОТРОВ 3:");
+        System.out.println();
+        for (Task task : taskManager.getHistory()) {
+            System.out.println(task);
+        }
 
     }
 }
