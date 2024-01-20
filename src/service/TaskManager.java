@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    void printTasks();
-
-    void printEpics();
-
-    void printSubtasks();
 
     void createTask(Task task);
 

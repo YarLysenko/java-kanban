@@ -18,27 +18,6 @@ public class InMemoryTaskManager implements TaskManager {
     private int taskId = 0;
 
     @Override
-    public void printTasks() {
-        for (Task task : tasks.values()) {
-            System.out.println(task);
-        }
-    }
-
-    @Override
-    public void printSubtasks() {
-        for (Subtask subtask : subtasks.values()) {
-            System.out.println(subtask);
-        }
-    }
-
-    @Override
-    public void printEpics() {
-        for (Epic epic : epics.values()) {
-            System.out.println(epic);
-        }
-    }
-
-    @Override
     public void createTask(Task task) {
         task.setId(createId());
         tasks.put(task.getId(), task);

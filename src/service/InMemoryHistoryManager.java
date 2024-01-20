@@ -8,16 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private static final int HISTORY_SIZE = 10;
     private Node first;
     private Node last;
-    private int size = 0;
     private final Map<Integer, Node> taskNodeMap = new HashMap<>();
 
     @Override
     public void add(Task task) {
-        Node existingNode = taskNodeMap.get(task.getId());
-
+        Node existingNode = taskNodeMap.remove(task.getId());
 
         if (existingNode != null) {
             removeNode(existingNode);
@@ -25,19 +22,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         Node newNode = linkLast(task);
         taskNodeMap.put(task.getId(), newNode);
-
-
-        if (size > HISTORY_SIZE) {
-            removeNode(first);
-        }
     }
 
     @Override
     public void remove(int id) {
-        Node nodeToRemove = taskNodeMap.get(id);
+        Node nodeToRemove = taskNodeMap.remove(id);
+
         if (nodeToRemove != null) {
             removeNode(nodeToRemove);
-            taskNodeMap.remove(id);
         }
     }
 
@@ -52,7 +44,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         return tasks;
     }
 
-    private Node linkLast(Object item) {
+    private Node linkLast(Task item) {
         final Node l = last;
         final Node newNode = new Node(l, item, null);
         last = newNode;
@@ -61,7 +53,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         } else {
             l.next = newNode;
         }
-        size++;
         return newNode;
     }
 
@@ -82,7 +73,17 @@ public class InMemoryHistoryManager implements HistoryManager {
             next.prev = prev;
             node.next = null;
         }
+    }
 
-        size--;
+    private static class Node {
+        Task item;
+        Node next;
+        Node prev;
+
+        Node(Node prev, Task item, Node next) {
+            this.item = item;
+            this.next = next;
+            this.prev = prev;
+        }
     }
 }

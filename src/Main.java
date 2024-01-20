@@ -34,22 +34,20 @@ public class Main {
         taskManager.updateTask(task1);
         epic1.setStatus("DONE");
         taskManager.updateEpic(epic1);
-        taskManager.printEpics();
+        taskManager.getAllEpics().forEach(System.out::println);
 
         subtask1.setStatus("DONE");
         taskManager.updateSubtask(subtask1);
         subtask2.setStatus("IN_PROGRESS");
         taskManager.updateSubtask(subtask2);
-        taskManager.printEpics();
-        taskManager.printSubtasks();
+        taskManager.getAllEpics().forEach(System.out::println);
+        taskManager.getAllSubtasks().forEach(System.out::println);
 
         System.out.println();
         System.out.println("ПОЛУЧИТЬ ВСЕ ПОДЗАДАЧИ ЭПИКА");
         System.out.println();
         List<Subtask> subtasksByEpic = taskManager.getSubtasksByEpic(epic1);
-        for (Subtask subtask : subtasksByEpic) {
-            System.out.println(subtask);
-        }
+        subtasksByEpic.forEach(System.out::println);
 
         System.out.println();
         System.out.println("ПОЛУЧЕНИЕ ЗАДАЧ ПО ИДЕНТИФИКАТОРУ");
@@ -66,9 +64,7 @@ public class Main {
         System.out.println();
         System.out.println("ИСТОРИЯ ПРОСМОТРОВ:");
         System.out.println();
-        for (Task task : taskManager.getHistory()) {
-            System.out.println(task);
-        }
+        taskManager.getHistory().forEach(System.out::println);
 
         System.out.println();
         System.out.println("ПОЛУЧЕНИЕ ЗАДАЧ ПО ИДЕНТИФИКАТОРУ 2");
@@ -83,23 +79,21 @@ public class Main {
         System.out.println("УДАЛЕНИЕ ОДНОЙ ПОДЗАДАЧИ");
         System.out.println();
         taskManager.deleteSubtask(subtask1);
-        taskManager.printEpics();
-        taskManager.printSubtasks();
+        taskManager.getAllEpics().forEach(System.out::println);
+        taskManager.getAllSubtasks().forEach(System.out::println);
 
         System.out.println();
         System.out.println("ИСТОРИЯ ПРОСМОТРОВ 2:");
         System.out.println();
-        for (Task task : taskManager.getHistory()) {
-            System.out.println(task);
-        }
+        taskManager.getHistory().forEach(System.out::println);
 
 
         System.out.println();
         System.out.println("УДАЛЕНИЕ ОДНОГО ЭПИКА");
         System.out.println();
         taskManager.deleteEpic(epic1);
-        taskManager.printEpics();
-        taskManager.printSubtasks();
+        taskManager.getAllEpics().forEach(System.out::println);
+        taskManager.getAllSubtasks().forEach(System.out::println);
 
         System.out.println();
         System.out.println("УДАЛЕНИЕ ВСЕХ ЗАДАЧ");
@@ -107,15 +101,13 @@ public class Main {
         taskManager.deleteAllEpics();
         taskManager.deleteAllSubtasks();
         taskManager.deleteAllTasks();
-        taskManager.printEpics();
-        taskManager.printSubtasks();
+        taskManager.getAllEpics().forEach(System.out::println);
+        taskManager.getAllSubtasks().forEach(System.out::println);
 
         System.out.println();
         System.out.println("ИСТОРИЯ ПРОСМОТРОВ 3:");
         System.out.println();
-        for (Task task : taskManager.getHistory()) {
-            System.out.println(task);
-        }
+        taskManager.getHistory().forEach(System.out::println);
 
     }
 }
