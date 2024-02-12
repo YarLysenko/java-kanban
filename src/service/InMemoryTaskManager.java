@@ -1,6 +1,7 @@
 package service;
 
 import model.Epic;
+import model.StatusType;
 import model.Subtask;
 import model.Task;
 
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static model.StatusType.*;
+
 public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, Task> tasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
@@ -16,6 +19,10 @@ public class InMemoryTaskManager implements TaskManager {
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int taskId = 0;
+
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
 
     @Override
     public void createTask(Task task) {
@@ -171,20 +178,20 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-    private String updateEpicStatus(Epic epic) {
-        ArrayList<String> subtasksStatus = new ArrayList<>();
+    protected StatusType updateEpicStatus(Epic epic) {
+        ArrayList<StatusType> subtasksStatus = new ArrayList<>();
         for (Integer subtaskId : epic.getSubtasksId()) {
-            String subtaskStatus = subtasks.get(subtaskId).getStatus();
-            subtasksStatus.add(subtaskStatus);
+            StatusType status = subtasks.get(subtaskId).getStatus();
+            subtasksStatus.add(status);
         }
         if (subtasksStatus.isEmpty()) {
-            return "NEW";
-        } else if (!subtasksStatus.contains("NEW") && !subtasksStatus.contains("IN_PROGRESS")) {
-            return "DONE";
-        } else if (!subtasksStatus.contains("DONE") && !subtasksStatus.contains("IN_PROGRESS")) {
-            return "NEW";
+            return NEW;
+        } else if (!subtasksStatus.contains(NEW) && !subtasksStatus.contains(IN_PROGRESS)) {
+            return DONE;
+        } else if (!subtasksStatus.contains(DONE) && !subtasksStatus.contains(IN_PROGRESS)) {
+            return NEW;
         } else {
-            return "IN_PROGRESS";
+            return IN_PROGRESS;
         }
     }
 

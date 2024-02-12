@@ -1,15 +1,19 @@
 package model;
 
-public class Task {
-    protected int id = 0;
-    protected String title;
-    protected String description;
-    protected String status;
+import static model.StatusType.NEW;
 
-    public Task(String title, String description) {
-        this.title = title;
+public class Task {
+    protected int id;
+    protected TaskType type;
+    protected String name;
+    protected StatusType status;
+    protected String description;
+
+
+    public Task(String name, String description) {
+        this.name = name;
         this.description = description;
-        status = "NEW";
+        status = NEW;
     }
 
     public int getId() {
@@ -20,12 +24,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -36,11 +40,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatus() {
+    public StatusType getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusType status) {
         this.status = status;
     }
 
@@ -48,9 +52,10 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", status=" + status +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
 }
