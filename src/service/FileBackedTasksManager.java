@@ -6,8 +6,9 @@ import model.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FileBackedTasksManager extends InMemoryTaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager implements FileBacked {
 
     private final File file;
 
@@ -97,7 +98,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         return epic.getStatus();
     }
 
-
+    @Override
     public void save() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
             bufferedWriter.write("id,type,name,status,description,epic");
@@ -111,7 +112,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 bufferedWriter.append(toString(subtask));
             }
 
-            bufferedWriter.append("\n" + "\n" + StaticMethod.historyToString(getHistoryManager()));
+            bufferedWriter.append("\n" + "\n" + historyToString(getHistoryManager()));
 
 
         } catch (IOException e) {
@@ -120,7 +121,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     }
 
-
+    @Override
     public Task fromString(String value) {
         String[] strSplit = value.split(",");
         TaskType typeTask = TaskType.valueOf(strSplit[1]);
@@ -140,21 +141,30 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
+    @Override
     public String toString(Task task) {
         return "\n" + task.getId() + ',' + TaskType.TASK + ',' + task.getName() + ',' + task.getStatus()
                 + ',' + task.getDescription();
     }
 
+    @Override
     public String toString(Subtask subtask) {
         return "\n" + subtask.getId() + ',' + TaskType.SUBTASK + ',' + subtask.getName() + ',' + subtask.getStatus()
                 + ',' + subtask.getDescription() + ',' + subtask.getEpicId();
     }
 
+    @Override
     public String toString(Epic epic) {
         return "\n" + epic.getId() + ',' + TaskType.EPIC + ',' + epic.getName() + ',' + epic.getStatus()
                 + ',' + epic.getDescription();
     }
 
+    /* Добрый день, Владимир! Согласно ТЗ ФП6, методы loadFromFile, historyToString и historyFromString должны быть статичными.
+       По этой причине переопределить их не получается. Для этих методов оставил модификатор доступа public.
+       Если принять проект в таком виде невозможно, подвскажите, пожалуйста, как мне подправить эти методы?
+       Заранее благодарен вам за ответ
+       Спасибо огромное за ревью
+    */
     public static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager fileBackendTasksManager = new FileBackedTasksManager(file);
         if (!file.isFile()) {
@@ -177,6 +187,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
         }
         return fileBackendTasksManager;
+    }
+
+
+    public static String historyToString(HistoryManager historyManager) {
+        StringBuilder str = new StringBuilder();
+        if (!historyManager.getHistory().isEmpty()) {
+            for (Task task : historyManager.getHistory()) {
+                str.append(task.getId() + ",");
+
+            }
+        }
+        return str.toString();
+    }
+
+    public static List<Integer> historyFromString(String value) {
+        List<Integer> history = new ArrayList<>();
+        String[] strSplit = value.split(",");
+        for (String sss : strSplit) {
+            history.add(Integer.parseInt(sss));
+        }
+        return history;
     }
 
     public static void main(String[] args) {

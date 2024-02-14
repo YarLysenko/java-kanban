@@ -19,7 +19,7 @@ public class Main {
 
         Subtask subtask11 = new Subtask("Подзадача 1", "Содержание подзадачи 1", 3);
         fileBackedTasksManager.createSubtask(subtask11);
-        Epic epic22 = new Epic("Эпик 2", "Des2");
+        Epic epic22 = new Epic("Эпик 2", "Содержание эпика 2");
         fileBackedTasksManager.createEpic(epic22);
         Subtask subtask21 = new Subtask("Подзадача 2", "Содержание подзадачи 2", epic22.getId());
         fileBackedTasksManager.createSubtask(subtask21);
