@@ -159,12 +159,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements FileB
                 + ',' + epic.getDescription();
     }
 
-    /* Добрый день, Владимир! Согласно ТЗ ФП6, методы loadFromFile, historyToString и historyFromString должны быть статичными.
-       По этой причине переопределить их не получается. Для этих методов оставил модификатор доступа public.
-       Если принять проект в таком виде невозможно, подвскажите, пожалуйста, как мне подправить эти методы?
-       Заранее благодарен вам за ответ
-       Спасибо огромное за ревью
-    */
+
     public static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager fileBackendTasksManager = new FileBackedTasksManager(file);
         if (!file.isFile()) {
