@@ -1,5 +1,8 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static model.StatusType.NEW;
 
 public class Task {
@@ -8,7 +11,18 @@ public class Task {
     protected String name;
     protected StatusType status;
     protected String description;
+    protected LocalDateTime startTime;
+    protected int duration;
 
+
+
+    public Task(String name, String description, LocalDateTime startTime, int duration) {
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
+        this.duration = duration;
+        status = NEW;
+    }
 
     public Task(String name, String description) {
         this.name = name;
@@ -48,6 +62,31 @@ public class Task {
         this.status = status;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime endTme() {
+        if (startTime == null) {
+            return null;
+        }
+        if (duration == 0) {
+            return null;
+        }
+        return startTime.plusMinutes(duration);
+    }
     @Override
     public String toString() {
         return "Task{" +
@@ -56,6 +95,16 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
                 '}';
+    }
+
+    public String dataTimeTpString(LocalDateTime lc) {
+        if (lc == null) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        return lc.format(formatter);
     }
 }

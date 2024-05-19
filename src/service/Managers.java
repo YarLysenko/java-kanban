@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Managers {
     public static TaskManager getDefault() {
-        return FileBackedTasksManager.loadFromFile(new File("resources/AutoSave.csv"));
+        return FileBackedTasksManager.loadFromFile(new File("./src/resources/AutoSave.csv"));
     }
 
     public static HistoryManager getDefaultHistory() {
