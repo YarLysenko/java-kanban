@@ -242,7 +242,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements FileB
                     taskTreeSet.add(subtask);
                     Epic epic1 = epics.get(subtask.getEpicId());
                     epic1.getSubtasksId().add(subtask.getId());
-//                    updateEpicStatus(epic1);
                     updateEpicTime(epic1);
                 }
         }

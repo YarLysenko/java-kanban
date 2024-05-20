@@ -44,6 +44,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         return tasks;
     }
 
+    public Map<Integer, Node> getTaskNodeMap() {
+        return taskNodeMap;
+    }
+
     private Node linkLast(Task item) {
         final Node l = last;
         final Node newNode = new Node(l, item, null);

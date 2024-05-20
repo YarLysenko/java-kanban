@@ -12,14 +12,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryHistoryManagerTest {
-    InMemoryHistoryManager inMemoryHistoryManager;
+    private InMemoryHistoryManager inMemoryHistoryManager;
     private Task task;
     private Epic epic;
     private Subtask subtask;
 
     @BeforeEach
     public void firstMethodTest() {
-        inMemoryHistoryManager = new InMemoryHistoryManager();
+        setInMemoryHistoryManager(new InMemoryHistoryManager());
         task = new Task("Task", "Описание");
         task.setId(1);
         epic = new Epic("Epic", "Описание");
@@ -36,7 +36,6 @@ public class InMemoryHistoryManagerTest {
         assertNotNull(task);
         assertNotNull(subtask);
         assertNotNull(epic);
-
     }
 
     @Test
@@ -45,7 +44,6 @@ public class InMemoryHistoryManagerTest {
         assertEquals(1, historyElement.get(0).getId());
         assertEquals("Task", historyElement.get(0).getName());
     }
-
 
     @Test
     public void addTaskCheckDuplicate() {
@@ -60,7 +58,7 @@ public class InMemoryHistoryManagerTest {
         for (Task task1 : inMemoryHistoryManager.getHistory()) {
             System.out.println(task1);
         }
-        assertEquals(2, inMemoryHistoryManager.taskNodeMap.size());
+        assertEquals(2, inMemoryHistoryManager.getTaskNodeMap().size());
     }
 
     @Test
@@ -69,7 +67,7 @@ public class InMemoryHistoryManagerTest {
         for (Task task1 : inMemoryHistoryManager.getHistory()) {
             System.out.println(task1);
         }
-        assertEquals(2, inMemoryHistoryManager.taskNodeMap.size());
+        assertEquals(2, inMemoryHistoryManager.getTaskNodeMap().size());
     }
 
     @Test
@@ -81,6 +79,14 @@ public class InMemoryHistoryManagerTest {
         for (Task task1 : inMemoryHistoryManager.getHistory()) {
             System.out.println(task1);
         }
-        assertEquals(2, inMemoryHistoryManager.taskNodeMap.size());
+        assertEquals(2, inMemoryHistoryManager.getTaskNodeMap().size());
+    }
+
+    public InMemoryHistoryManager getInMemoryHistoryManager() {
+        return inMemoryHistoryManager;
+    }
+
+    public void setInMemoryHistoryManager(InMemoryHistoryManager inMemoryHistoryManager) {
+        this.inMemoryHistoryManager = inMemoryHistoryManager;
     }
 }

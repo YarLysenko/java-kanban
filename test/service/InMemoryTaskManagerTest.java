@@ -13,15 +13,14 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-
 public class InMemoryTaskManagerTest<T extends TaskManager> extends TaskManagerTest<FileBackedTasksManager> {
     private File file;
-    FileBackedTasksManager fileBackedTasksManager;
+    private FileBackedTasksManager fileBackedTasksManager;
 
     @BeforeEach
     public void startMethod() {
         file = new File("./src/resources/AutoSave.csv");
-        fileBackedTasksManager = new FileBackedTasksManager(file);
+        setFileBackedTasksManager(new FileBackedTasksManager(file));
         taskManager = new FileBackedTasksManager(file);
         task = new Task("Задача_1", "Описание задачи_1",
                 LocalDateTime.of(2025, 5, 5, 2, 2), 30);
@@ -34,7 +33,6 @@ public class InMemoryTaskManagerTest<T extends TaskManager> extends TaskManagerT
                 LocalDateTime.of(2025, 2, 5, 2, 2), 30, epic.getId());
         subtask.setId(3);
         taskManager.createSubtask(subtask);
-
     }
 
     @Test
@@ -50,5 +48,12 @@ public class InMemoryTaskManagerTest<T extends TaskManager> extends TaskManagerT
         assertFalse(taskManager.subtasks.isEmpty());
         assertFalse(taskManager.epics.isEmpty());
     }
-}
 
+    public FileBackedTasksManager getFileBackedTasksManager() {
+        return fileBackedTasksManager;
+    }
+
+    public void setFileBackedTasksManager(FileBackedTasksManager fileBackedTasksManager) {
+        this.fileBackedTasksManager = fileBackedTasksManager;
+    }
+}
