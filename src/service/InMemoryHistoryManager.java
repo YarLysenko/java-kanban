@@ -10,7 +10,7 @@ import java.util.Map;
 public class InMemoryHistoryManager implements HistoryManager {
     private Node first;
     private Node last;
-    private final Map<Integer, Node> taskNodeMap = new HashMap<>();
+    protected final Map<Integer, Node> taskNodeMap = new HashMap<>();
 
     @Override
     public void add(Task task) {
@@ -42,6 +42,10 @@ public class InMemoryHistoryManager implements HistoryManager {
             current = current.next;
         }
         return tasks;
+    }
+
+    public Map<Integer, Node> getTaskNodeMap() {
+        return taskNodeMap;
     }
 
     private Node linkLast(Task item) {
