@@ -122,8 +122,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements FileB
     public Task fromString(String value) {
         String[] strSplit = value.split(",");
         Integer idTask = Integer.parseInt(strSplit[0]);
-        if (idTask > taskId) {
-            taskId = idTask;
+        if (idTask > id) {
+            id = idTask;
         }
         TaskType typeTask = TaskType.valueOf(strSplit[1]);
         String name = strSplit[2];

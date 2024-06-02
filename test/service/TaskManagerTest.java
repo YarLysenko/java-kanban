@@ -23,7 +23,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void testUtilityClassReturnsInitializedManagers() {
-        TaskManager manager = Managers.getDefault();
+        TaskManager manager = Managers.getDefaultFromFile();
         assertNotNull(manager);
     }
 
