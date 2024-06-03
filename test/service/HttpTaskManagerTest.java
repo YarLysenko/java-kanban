@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager> {
-    KVServer kvServer;
+    private KVServer kvServer;
     @BeforeEach
     void startMethod() throws IOException {
         kvServer = new KVServer();
