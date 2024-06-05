@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import static model.StatusType.NEW;
 
 public class Task {
-    protected int id;
+    protected Integer id;
     protected TaskType type;
     protected String name;
     protected StatusType status;
@@ -30,7 +30,7 @@ public class Task {
         status = NEW;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

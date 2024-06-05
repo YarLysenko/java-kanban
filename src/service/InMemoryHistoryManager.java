@@ -14,14 +14,27 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
+        // Проверка на null и вывод отладочного сообщения
+        if (task == null) {
+            System.err.println("Attempted to add a null task.");
+            throw new IllegalArgumentException("Task cannot be null");
+        }
+
+        System.out.println("Adding task with ID: " + task.getId());
+
         Node existingNode = taskNodeMap.remove(task.getId());
 
         if (existingNode != null) {
+            System.out.println("Removing existing node for task with ID: " + task.getId());
             removeNode(existingNode);
+        } else {
+            System.out.println("No existing node found for task with ID: " + task.getId());
         }
 
         Node newNode = linkLast(task);
         taskNodeMap.put(task.getId(), newNode);
+
+        System.out.println("Task with ID: " + task.getId() + " added successfully.");
     }
 
     @Override

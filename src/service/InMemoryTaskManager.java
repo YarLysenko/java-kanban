@@ -18,7 +18,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HistoryManager historyManager = Managers.getDefaultHistory();
     protected Set<Task> taskTreeSet = new TreeSet<>(new StartComparator());
 
-    protected Integer taskId = 0;
+    protected Integer id = 0;
 
 
     public Set<Task> getTaskTreeSet() {
@@ -191,6 +191,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public List<Task> getPrioritizedTasks() {
+        return new ArrayList<>(taskTreeSet);
+    }
+
+    @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
@@ -255,7 +260,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private Integer createId() {
-        return ++taskId;
+        return ++id;
     }
 
     public static class StartComparator implements Comparator<Task> {

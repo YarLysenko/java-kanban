@@ -51,4 +51,6 @@ public interface TaskManager {
 
     List<Task> timeList();
 
+    List<Task> getPrioritizedTasks();
+
 }
